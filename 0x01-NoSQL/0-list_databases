@@ -1,6 +1,1 @@
-<<<<<<< HEAD
-// A  script that lists all databases in MongoDB.
-=======
-// A  script that lists all databases in MongoDB
->>>>>>> bdea7a3bac6aba7063ddf9c4d6f60980297a9076
-show dbs
+
