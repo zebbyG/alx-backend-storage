@@ -1,5 +1,7 @@
 #### 0x01-NoSQL
 
+:page_with_curl:
+
 [0. List all databases](0-list_databases)
 
 Write a script that lists all databases in MongoDB.
