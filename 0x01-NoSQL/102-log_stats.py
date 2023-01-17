@@ -18,7 +18,7 @@ print(f"{num_of_logs} logs")
 print("Methods:")
 method = ["GET", "POST", "PUT", "PATCH", "DELETE"]
 for m in method:
-    count_per_method = collection_nginx.count_documents({"method": method})
+    count_per_method = collection_nginx.count_documents({"method": m})
     print(f"\tmethod {m}: {count_per_method}")
 
 status_check = collection_nginx.count_documents({"method": "GET", "path": "/status"})
