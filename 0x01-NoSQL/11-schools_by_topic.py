@@ -10,5 +10,5 @@ def schools_by_topic(mongo_collection, topic):
     :param topic: (string) will be topic searched
     :return: the list of school having a specific topic
     """
-    list_of_school = mongo_collection.find(topic)
+    list_of_school = mongo_collection.find({"topics": topic})
     return list(list_of_school)
