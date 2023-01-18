@@ -1,13 +1,35 @@
+#!/usr/bin/env python3
+""" Tracker callls """
+
+import redis
 import requests
-from functools import lru_cache
+from typing import Callable
+from functools import wraps
+
+r = redis.Redis()
 
 
-@lru_cache(maxsize=None)
+def count_calls(method: Callable) -> Callable:
+    """ Decorator to know the number of calls """
+
+    @wraps(method)
+    def wrapper(url):
+        """ Wrapper decorator """
+        r.incr(f"count:{url}")
+        cached_html = r.get(f"cached:{url}")
+        if cached_html:
+            return cached_html.decode('utf-8')
+
+        html = method(url)
+        r.setex(f"cached:{url}", 10, html)
+        return html
+
+    return wrapper
+
+
+@count_calls
 def get_page(url: str) -> str:
-    requests.get(url)
-    count = "count:" + url
-    if count in get_page.cache:
-        get_page.cache[count] += 1
-    else:
-        get_page.cache[count] = 1
-    return requests.get(url).text
+    """ Get page
+    """
+    req = requests.get(url)
+    return req.text
